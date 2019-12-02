@@ -1,0 +1,12 @@
+name: loading_more_list_library
+description: dart package library for LoadingMoreList, it provides core classes.
+version: 1.0.0
+homepage: https://github.com/fluttercandies/loading_more_list_library
+author: zmtzawqlp <zmtzawqlp@live.com>
+
+environment:
+  sdk: '>=2.0.0-dev.68.0 <3.0.0'
+
+dependencies:
+  meta: ^1.1.8
+
