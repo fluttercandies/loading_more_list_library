@@ -58,7 +58,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     isLoading = false;
     if (isSuccess) {
       indicatorStatus = IndicatorStatus.none;
-      if (this.length == 0) indicatorStatus = IndicatorStatus.empty;
+      if (this.isEmpty) indicatorStatus = IndicatorStatus.empty;
     } else {
       if (indicatorStatus == IndicatorStatus.fullScreenBusying) {
         indicatorStatus = IndicatorStatus.fullScreenError;
@@ -86,7 +86,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   @override
   @mustCallSuper
   Future<bool> errorRefresh() async {
-    if (this.length == 0) return await refresh(true);
+    if (this.isEmpty) return await refresh(true);
     return await loadMore();
   }
 
@@ -113,7 +113,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
 }
 
 class _LoadingMoreBloc<T> {
-  final _rebuild = new StreamController<LoadingMoreBase<T>>.broadcast();
+  final _rebuild =  StreamController<LoadingMoreBase<T>>.broadcast();
   Stream<LoadingMoreBase<T>> get rebuild => _rebuild.stream;
 
   void onStateChanged(LoadingMoreBase<T> source) {
