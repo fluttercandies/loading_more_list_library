@@ -23,18 +23,10 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   final List<T> _array = <T>[];
 
   @override
-  T operator [](int index) {
-    assert(0 <= index && index < _array.length);
-
-    return _array[index];
-  }
+  T operator [](int index) => _array[index];
 
   @override
-  void operator []=(int index, T value) {
-    if (0 <= index && index < _array.length) {
-      _array[index] = value;
-    }
-  }
+  void operator []=(int index, T value) => _array[index] = value;
 
   bool get hasMore => true;
   bool isLoading = false;
@@ -117,6 +109,11 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   /// update ui
   void setState() {
     super.onStateChanged(this);
+  }
+
+  @override
+  void add(T element) {
+    _array.add(element);
   }
 }
 

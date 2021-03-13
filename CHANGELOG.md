@@ -1,3 +1,7 @@
+## 2.0.1
+
+* Fix error when add non-null T
+
 ## 2.0.0
 
 * Support null-safety
