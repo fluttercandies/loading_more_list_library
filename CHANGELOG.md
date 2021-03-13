@@ -1,11 +1,15 @@
+## 2.0.0
+
+* Support null-safety
+
 ## 1.0.2
 
-- Update meta version
+* Update meta version
 
 ## 1.0.1
 
-- Format codes
+* Format codes
 
 ## 1.0.0
 
-- Initial version, created by Stagehand
+* Initial version, created by Stagehand
