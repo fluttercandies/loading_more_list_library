@@ -1,6 +1,6 @@
-## 2.0.0
+## 2.0.0-non-null-safety
 
-* Support null-safety
+* non-null-safety
 
 ## 1.0.2
 

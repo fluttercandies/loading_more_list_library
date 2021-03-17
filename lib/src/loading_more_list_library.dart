@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 
 abstract class RefreshBase {
+  //if clear is true, it will clear list,before request
   Future<bool> refresh([bool notifyStateChanged = false]);
   Future<bool> errorRefresh();
 }
@@ -24,9 +25,10 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
 
   @override
   T operator [](int index) {
-    assert(0 <= index && index < _array.length);
-
-    return _array[index];
+    if (0 <= index && index < _array.length) {
+      return _array[index];
+    }
+    return null;
   }
 
   @override
