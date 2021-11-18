@@ -44,12 +44,12 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     return await _innerloadData(true);
   }
 
-  Future<bool> _innerloadData([bool isloadMoreAction = false]) async {
+  Future<bool> _innerloadData([bool isLoadMoreAction = false]) async {
     if (isLoading || !hasMore) {
       return true;
     }
     isLoading = true;
-    final bool isSuccess = await loadData(isloadMoreAction);
+    final bool isSuccess = await loadData(isLoadMoreAction);
     isLoading = false;
     if (isSuccess) {
       indicatorStatus = IndicatorStatus.none;
@@ -67,7 +67,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     return isSuccess;
   }
 
-  Future<bool> loadData([bool isloadMoreAction = false]);
+  Future<bool> loadData([bool isLoadMoreAction = false]);
 
   @override
   @mustCallSuper
