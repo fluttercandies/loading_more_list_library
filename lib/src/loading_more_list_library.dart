@@ -39,7 +39,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     final IndicatorStatus preStatus = indicatorStatus;
     indicatorStatus = IndicatorStatus.loadingMoreBusying;
     if (preStatus != indicatorStatus) {
-      onStateChanged(this);
+      _onStateChanged(this);
     }
     return await _innerloadData(true);
   }
@@ -63,7 +63,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
         indicatorStatus = IndicatorStatus.error;
       }
     }
-    onStateChanged(this);
+    _onStateChanged(this);
     return isSuccess;
   }
 
@@ -75,7 +75,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
     if (notifyStateChanged) {
       clear();
       indicatorStatus = IndicatorStatus.fullScreenBusying;
-      onStateChanged(this);
+      _onStateChanged(this);
     }
     return await _innerloadData();
   }
@@ -94,13 +94,6 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   @override
   set length(int newLength) => _array.length = newLength;
 
-  @override
-  //@protected
-  @mustCallSuper
-  void onStateChanged(LoadingMoreBase<T> source) {
-    super.onStateChanged(source);
-  }
-
   bool get hasError {
     return indicatorStatus == IndicatorStatus.fullScreenError ||
         indicatorStatus == IndicatorStatus.error;
@@ -108,7 +101,7 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
 
   /// update ui
   void setState() {
-    super.onStateChanged(this);
+    super._onStateChanged(this);
   }
 
   @override
@@ -118,13 +111,25 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
 }
 
 class _LoadingMoreBloc<T> {
-  final StreamController<LoadingMoreBase<T>> _rebuild =
-      StreamController<LoadingMoreBase<T>>.broadcast();
-  Stream<LoadingMoreBase<T>> get rebuild => _rebuild.stream;
+  final StreamController<Iterable<T>> _rebuild =
+      StreamController<Iterable<T>>.broadcast();
+  Stream<Iterable<T>> get rebuild => _rebuild.stream;
 
-  void onStateChanged(LoadingMoreBase<T> source) {
+  /// 1. call before add data to stream
+  /// 2. call at set the initialData of stream
+  ///
+  /// example:
+  /// @override
+  /// Iterable<TuChongItem> wrapData(Iterable<TuChongItem> source) {
+  ///   return source.where((TuChongItem element) => element.imageCount == 1);
+  /// }
+  Iterable<T> wrapData(Iterable<T> source) {
+    return source;
+  }
+
+  void _onStateChanged(Iterable<T> source) {
     if (!_rebuild.isClosed) {
-      _rebuild.sink.add(source);
+      _rebuild.sink.add(wrapData(source));
     }
   }
 
