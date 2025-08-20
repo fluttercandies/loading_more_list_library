@@ -57,10 +57,10 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
         indicatorStatus = IndicatorStatus.empty;
       }
     } else {
-      if (indicatorStatus == IndicatorStatus.fullScreenBusying) {
-        indicatorStatus = IndicatorStatus.fullScreenError;
-      } else if (indicatorStatus == IndicatorStatus.loadingMoreBusying) {
+      if (isLoadMoreAction) {
         indicatorStatus = IndicatorStatus.error;
+      } else {
+        indicatorStatus = IndicatorStatus.fullScreenError;
       }
     }
     _onStateChanged(this);
@@ -72,9 +72,9 @@ abstract class LoadingMoreBase<T> extends ListBase<T>
   @override
   @mustCallSuper
   Future<bool> refresh([bool notifyStateChanged = false]) async {
+    indicatorStatus = IndicatorStatus.fullScreenBusying;
     if (notifyStateChanged) {
       clear();
-      indicatorStatus = IndicatorStatus.fullScreenBusying;
       _onStateChanged(this);
     }
     return await _innerloadData();

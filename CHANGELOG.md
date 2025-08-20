@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Set indicatorStatus to IndicatorStatus.fullScreenBusying when refresh
+
 ## 3.0.0
 
 * Breaking change: The type of rebuild is changed from Stream<LoadingMoreBase<T>>  to Stream<Iterable<T>> in LoadingMoreBase<T>.
